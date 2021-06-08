@@ -8,8 +8,8 @@ public class Character {
     public ArrayList<CharacterAttributes> characterAttributes;
     public Race race;
 
-    public int health;
-    public int mana;
+    public int health = 100;
+    public int mana = 100;
 
     public static void makeAttack(){
 
