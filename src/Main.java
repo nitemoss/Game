@@ -1,11 +1,10 @@
 import character.Character;
-import character.Warrior;
 
 import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
+//        JsonParser parser = new JSONParser();
 
         Character character = new Character();
 
@@ -13,13 +12,14 @@ public class Main {
 
         System.out.println("Welcome to the Game!");
         System.out.println("Enter your character's name:");
-        character.name = scanner.nextLine();
+        String name = scanner.nextLine();
 
-        System.out.println("Enter your character's name:");
+        System.out.println("Type of your character? (warrior/mage):");
         switch (scanner.nextLine()){
             case "warrior":
                 character = new Warrior();
             case "mage":
+                character
         }
 
         character = new Warrior();
