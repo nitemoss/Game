@@ -20,6 +20,8 @@ public class Character {
 
 
 
+
+
     public static void makeAttack(){
 
     }
@@ -34,12 +36,12 @@ public class Character {
         return characterType;
     }
 
-    public void setCharacterType(CharacterType characterType) {
+    public void setCharacterType(String characterType) {
         HashMap<String, CharacterType> typeMap = new HashMap<String, CharacterType>();
         typeMap.put("warrior", CharacterType.Warrior);
         typeMap.put("mage", CharacterType.Mage);
         typeMap.put("ranger", CharacterType.Ranger);
-        
+
     }
 
     public void setRace(String race) {
