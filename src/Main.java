@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Random;
 
 import character.Character;
 import org.json.JSONWriter;
@@ -15,11 +16,13 @@ public class Main {
     private JPanel panelMain;
     private JLabel statusLabel;
     private JLabel welcomeLabel;
+
     private JLabel strengthLabel;
     private JLabel intelligenceLabel;
     private JLabel dexterityLabel;
     private JLabel defenseLabel;
     private JLabel wisdomLabel;
+
     private JLabel HPLabel;
     private JLabel manaLabel;
 
@@ -30,7 +33,7 @@ public class Main {
         buttonNextDay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                nextDay();
 
             }
         });
@@ -69,41 +72,44 @@ public class Main {
     private void setupGamedataFile(File jsonInputFile){
         try {
             String player_name = JOptionPane.showInputDialog("Player name");
-            JOptionPane.showMessageDialog(null, player_name);
+            player.name = player_name;
+
+            String charType = JOptionPane.showInputDialog("Type of your character? (warrior/mage/ranger)");
+            player.setCharacterType(charType);
+
+            String race = JOptionPane.showInputDialog("Race of your character? (orc/elf/human/undead)");
+            player.setRace(race);
+
+
             FileOutputStream out = new FileOutputStream(jsonInputFile);
             Writer writer = new OutputStreamWriter(out);
             JSONWriter gamedataWriter = new JSONWriter(writer);
+
             gamedataWriter.object();
             gamedataWriter.key("player_name");
             gamedataWriter.value(player_name);
 
+            gamedataWriter.key("player_race");
+            gamedataWriter.value(race);
 
+            gamedataWriter.key("player_type");
+            gamedataWriter.value(charType);
 
             gamedataWriter.key("day_count");
             gamedataWriter.value(1);
+
+//            gamedataWriter.key("player_attributes");
+//            gamedataWriter.array([player.characterAttribute.wisdom]);
+
             gamedataWriter.endObject();
 
-
-//            gamedataWriter.object().key("ads").value(23).endObject();
-
-
-
-
-
             writer.close();
+
             welcomeLabel.setText("Welcome to the game, " + player_name);
             statusLabel.setText("Day 1");
             statusLabel.setFont(new Font("Serif", Font.PLAIN, 30));
 
 
-
-
-
-            String charType = JOptionPane.showInputDialog("Type of your character? (warrior/mage/ranger):");
-            player.setCharacterType(charType);
-
-            String race = JOptionPane.showInputDialog("Race of your character? (orc/elf/human/undead)");
-            player.setRace(race);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,13 +119,26 @@ public class Main {
     }
 
     private void nextDay(){
+        Random rand = new Random();
+        int day_destiny = rand.nextInt(2);
 
+        if(1 == day_destiny){
+            int weapon_lvl = rand.nextInt(15);
+
+            JOptionPane.showMessageDialog(null, "A trader gave you a new item: \nSword " + Integer.toString(weapon_lvl) + "lvl");
+
+        } else {
+            int enemy_damage = rand.nextInt(40);
+
+            JOptionPane.showMessageDialog(null, "You met an enemy. \nType: unknown\nDamage: " + Integer.toString(enemy_damage) + "-" + Integer.toString(enemy_damage + 14) + "hp");
+//            JOptionPane.showOptionDialog(null, "test", "test", 0, 0);
+        }
     }
 
     public static void main(String[] args) {
 
 
-        JFrame frame = new JFrame("The Warrior's Journey");
+        JFrame frame = new JFrame("The Warrior's Journey (beta)");
 
 
         frame.setContentPane(new Main().panelMain);
